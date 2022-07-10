@@ -1,0 +1,23 @@
+Регистрация
+<form action="/user/register" method="post">
+  Имя: <input type="text" name="name"><br>
+  Емаил: <input type="email" name="email"><br>
+  Пароль: <input type="password" name="password"><br>
+  Повторите пароль: <input type="password" name="password2"><br>
+    <input type="submit" value="Зарегистрироваться"><br>
+</form>
+
+Авторизация
+<form action="/user/login" method="post">
+   Email: <input type="email" name="email"><br>
+   Пароль: <input type="password" name="password"><br>
+    <input type="submit" value="Войти"><br>
+</form>
+
+<br>
+<br>
+<br>
+
+<?php if($this->error): ?>
+    <span style="color: red"><?=$this->error;?></span>
+<?php endif; ?>

@@ -1,0 +1,57 @@
+<?PHP
+
+/**@var \App\Model\Message as $message */
+?>
+Вы вошли как <?php
+                echo $user->getName();
+                ?>
+<form action="/User/logout">
+    <input type="submit" value="Выйти">
+</form> <br>
+<a href="../SwiftMailer/sendMessage">Отправить почту</a>
+
+<hr>
+<br>
+<p>Вывод сообщений:</p>
+<?php
+
+if ($message) {
+    foreach ($message as $elem) {
+        echo '<br>';
+        if ($user->isAdmin()) {
+?> 
+            <div>
+                <a style="color:red" href="/admin/deleteMessage/?id=<?php echo $elem['id']; ?>">Удалить Сообщение</a><br>
+                <hr>
+            </div>
+        <?php
+        }
+        echo "<b>Дата отправки сообщения: </b>" . $elem['insert_date'] . '<br><br>';
+        echo "<b>Пользователь: </b>" . htmlspecialchars($elem['name']) . '<br><br>';
+        echo "<b>Текст сообщения: </b>" . htmlspecialchars(nl2br($elem['text'])) . '<br>';
+        if ($elem['img']) { ?><img src="../img/<?php echo $elem['img']; ?>">
+          
+    <hr>
+
+<?php }
+    }
+} else {
+    echo "<b>Сообщений еще нет</b><hr>";
+}
+?>
+
+<br>
+<br>
+<form enctype="multipart/form-data" action="/blog/addMessage" method="post"> <br>
+    Сообщение:<br>
+    <textarea style="width: 250px; height: 200px;" type="text" name="text"></textarea><br>
+    <input type="file" name="img"><br>
+    <input type="submit" value="Сохранить"><br>
+</form>
+<br>
+<br>
+<!-- <?php
+
+        if ($this->error) : ?>
+    <span style="color: red"><?= $this->error; ?></span>
+<?php endif; ?> -->

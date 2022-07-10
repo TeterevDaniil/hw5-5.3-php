@@ -1,0 +1,10 @@
+<?php
+
+/**@var \App\Controller\UserModel as $user */
+if ($user) {
+    echo "name: " . $user->getName() . "<br>";
+    echo "Email: " . $user->getEmail() . "<br>";
+    echo "Email: " . $user->getInsertDate() . "<br>";
+} else {
+    echo "Пользователь не найден!";
+}
