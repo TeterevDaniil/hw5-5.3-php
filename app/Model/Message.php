@@ -102,8 +102,15 @@ class Message
             $image->resize(200, null, function (\Intervention\Image\Constraint $constraint) {
                 $constraint->aspectRatio();
             });
+            $image->text('Watermark', $image->getWidth() - 10, $image->getHeight() - 10, function (\Intervention\Image\AbstractFont $font) {
+                $font->size(24);
+                $font->file(__DIR__.'/arial.ttf');
+                $font->color([255, 255, 255, 0.3]);
+                $font->align('right');
+                $font->valign('bottom');
+            });
+            
             $image->save($filename);
-           // return $image->response('jpg');
 
         }
     }

@@ -65,9 +65,9 @@ class Blog extends AbstractController
                 ->setText($text)
                 ->setUser_id($this->user->getId());
             if (isset($_FILES['img']['tmp_name'])) {
-                $message->loadFile($_FILES['img']['tmp_name']);
+              var_dump($message->loadFile($_FILES['img']['tmp_name']));
             }
-           $message->saveMessage();
+          $message->saveMessage();
         }
         $this->redirect('/blog');
     }
