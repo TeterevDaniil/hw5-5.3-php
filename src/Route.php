@@ -21,7 +21,6 @@ class Route
                 $parts = explode('/', $path);
                 $this->controllerName = '\\App\\Controller\\' . ucfirst(strtolower($parts[1]));
                 $this->actionName = strtolower($parts[2] ?? 'Index');
-               // var_dump($this->actionName);
             }
 
             $this->processed = true;

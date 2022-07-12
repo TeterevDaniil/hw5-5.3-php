@@ -3,6 +3,7 @@
 namespace APP\Controller;
 
 use App\Model\Message;
+use APP\Model\User;
 use Base\AbstractController;
 use Base\View;
 
@@ -17,13 +18,12 @@ class Blog extends AbstractController
         }
 
         $messages = Message::getListMessages();
-
         if ($messages) {
-            $data = Message::getUserMessages($messages);
+            $this->data = Message::getUserMessages($messages);
         }
         return $this->view->render('Blog/index.phtml', [
             'user' => $this->user,
-            'message' => $data
+            'message' => $this->data
         ]);
     }
 
@@ -38,7 +38,7 @@ class Blog extends AbstractController
         if ($messages) {
             $data = Message::getUserMessages($messages);
         }
-        
+
         return $this->view->render('index.twig', [
             'messages' => $data,
             'user' => $this->user->getName(),
@@ -65,10 +65,16 @@ class Blog extends AbstractController
                 ->setText($text)
                 ->setUser_id($this->user->getId());
             if (isset($_FILES['img']['tmp_name'])) {
-              var_dump($message->loadFile($_FILES['img']['tmp_name']));
+                $message->loadFile($_FILES['img']['tmp_name']);
             }
-          $message->saveMessage();
+            $message->saveMessage();
+            $this->redirect('/blog');
         }
-        $this->redirect('/blog');
+        $messages = Message::getListMessages();
+        if ($messages) {
+            $this->data = Message::getUserMessages($messages);
+        }
+        return $this->view->render('Blog/index.phtml', ['user' => User::getById((int)$this->user->getId()),
+        'message' => $this->data]);
     }
 }

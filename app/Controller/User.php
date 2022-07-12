@@ -10,14 +10,18 @@ use Base\View;
 class User extends AbstractController
 {
     public function loginAction()
-    {$this->view->setRenderType(View::RENDER_TYPE_NATIVE);
+    {
+        $this->view->setRenderType(View::RENDER_TYPE_NATIVE);
+        if ($this->user) {
+            $this->redirect('/blog/index');
+        }
         $email = trim($_POST['email']);
         if ($email) {
             $password = $_POST['password'];
             $user = UserModel::getByEmail($email);
             $helper = new Helper();
             if (!$user) {
-                $this->view->assign('error', 'Неверный Email или пароль');
+                 $this->view->assign('error', 'Неверный Email или пароль');
             }
             if ($user) {
                 if ($user->getPassword() != $helper->hashPassword($password)) {
@@ -32,25 +36,30 @@ class User extends AbstractController
             'user' => UserModel::getById((int) $_GET['id'])
         ]);
     }
+
+
     public function registerAction()
-    {$this->view->setRenderType(View::RENDER_TYPE_NATIVE);
+    {
+        $this->view->setRenderType(View::RENDER_TYPE_NATIVE);
+        if ($this->user) {
+            $this->redirect('/blog/index');
+        }
         $success = true;
         $name = trim($_POST['name']);
         $email = trim($_POST['email']);
         $helper = new Helper();
         $password = trim($_POST['password']);
         $password2 = trim($_POST['password2']);
-        if (mb_strlen($password) < 4) {
-            $this->view->assign('error', 'Пароль должен быть не менее 4 знаков');
-            $success = false;
-        }
-        if ($password !== $password2) {
-            $this->view->assign('error', 'Пароли не совподают');
-            $success = false;
-        }
-        $password = $helper->hashPassword($password);
-
         if ($name) {
+            if (mb_strlen($password) <= 4) {
+                $this->view->assign('error', 'Пароль должен быть не менее 4 знаков');
+                $success = false;
+            }
+            if ($password !== $password2) {
+                $this->view->assign('error', 'Пароли не совподают');
+                $success = false;
+            }
+            $password = $helper->hashPassword($password);
             if (!$name) {
                 $this->view->assign('error', 'Имя не может быть пустым');
                 $success = false;
@@ -93,7 +102,8 @@ class User extends AbstractController
     }
 
     public function profileAction()
-    {$this->view->setRenderType(View::RENDER_TYPE_NATIVE);
+    {
+        $this->view->setRenderType(View::RENDER_TYPE_NATIVE);
         return $this->view->render('User/profile.phtml', [
             'user' => UserModel::getById($this->user->getId())
         ]);

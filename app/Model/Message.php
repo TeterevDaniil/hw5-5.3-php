@@ -20,7 +20,6 @@ class Message
             $this->user_id = $data['user_id'];
             $this->insert_date = $data['insert_date'];
             $this->img = $data['img'] ?? '';
-            var_dump($data);
         }
     }
 
@@ -104,14 +103,13 @@ class Message
             });
             $image->text('Watermark', $image->getWidth() - 10, $image->getHeight() - 10, function (\Intervention\Image\AbstractFont $font) {
                 $font->size(24);
-                $font->file(__DIR__.'/arial.ttf');
+                $font->file(__DIR__ . '/arial.ttf');
                 $font->color([255, 255, 255, 0.3]);
                 $font->align('right');
                 $font->valign('bottom');
             });
-            
-            $image->save($filename);
 
+            $image->save($filename);
         }
     }
 

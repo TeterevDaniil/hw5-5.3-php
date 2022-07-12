@@ -23,7 +23,7 @@ class View
         }
         $this->_renderType = $renderType;
     }
-  
+
     public function assign(string $name, $value)
     {
         $this->data[$name] = $value;
@@ -32,6 +32,7 @@ class View
 
     public function render(string $tpl, array $data): string
     {
+
         switch ($this->_renderType) {
             case self::RENDER_TYPE_NATIVE:
                 extract($data);
@@ -41,9 +42,9 @@ class View
                 break;
 
             case self::RENDER_TYPE_TWIG:
-                $loader = new \Twig\Loader\FilesystemLoader($this->templatePath . DIRECTORY_SEPARATOR . '\Blog');
+                $loader = new \Twig\Loader\FilesystemLoader($this->templatePath . DIRECTORY_SEPARATOR . 'Blog');
                 $twig = new \Twig\Environment($loader, [
-                    // 'cache' => $this->templatePath.'\cache',
+                     'cache' => $this->templatePath.'\cache',
                 ]);
                 echo $twig->render($tpl, $data);
                 return ob_get_clean();

@@ -19,7 +19,7 @@ if ($message) {
     foreach ($message as $elem) {
         echo '<br>';
         if ($user->isAdmin()) {
-?> 
+?>
             <div>
                 <a style="color:red" href="/admin/deleteMessage/?id=<?php echo $elem['id']; ?>">Удалить Сообщение</a><br>
                 <hr>
@@ -30,10 +30,10 @@ if ($message) {
         echo "<b>Пользователь: </b>" . htmlspecialchars($elem['name']) . '<br><br>';
         echo "<b>Текст сообщения: </b>" . htmlspecialchars(nl2br($elem['text'])) . '<br>';
         if ($elem['img']) { ?><img src="../img/<?php echo $elem['img']; ?>">
-          
-    <hr>
 
-<?php }
+<?php } ?>
+<hr>
+<?php
     }
 } else {
     echo "<b>Сообщений еще нет</b><hr>";
@@ -50,8 +50,6 @@ if ($message) {
 </form>
 <br>
 <br>
-<!-- <?php
-
-        if ($this->error) : ?>
-    <span style="color: red"><?= $this->error; ?></span>
-<?php endif; ?> -->
+<?php  if ($this->error) : ?>
+    <span style="color: red"><?php echo $this->error; ?></span>
+<?php endif; ?>
