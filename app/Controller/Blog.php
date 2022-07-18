@@ -16,9 +16,8 @@ class Blog extends AbstractController
         if (!$this->user) {
             $this->redirect('/user/register');
         }
-
         $messages = Message::getListMessages();
-        if ($messages) {
+        if (isset($messages)) {
             $this->data = Message::getUserMessages($messages);
         }
         return $this->view->render('Blog/index.phtml', [
@@ -74,7 +73,9 @@ class Blog extends AbstractController
         if ($messages) {
             $this->data = Message::getUserMessages($messages);
         }
-        return $this->view->render('Blog/index.phtml', ['user' => User::getById((int)$this->user->getId()),
-        'message' => $this->data]);
+        return $this->view->render('Blog/index.phtml', [
+            'user' => User::getById((int)$this->user->getId()),
+            'message' => $this->data
+        ]);
     }
 }

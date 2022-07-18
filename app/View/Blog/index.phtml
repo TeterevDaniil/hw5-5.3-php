@@ -1,7 +1,6 @@
 <?PHP
 
-/**@var \App\Model\Message as $message */
-?>
+/**@var \App\Model\Message as $message */ ?>
 Вы вошли как <?php
                 echo $user->getName();
                 ?>
@@ -31,8 +30,8 @@ if ($message) {
         echo "<b>Текст сообщения: </b>" . htmlspecialchars(nl2br($elem['text'])) . '<br>';
         if ($elem['img']) { ?><img src="../img/<?php echo $elem['img']; ?>">
 
-<?php } ?>
-<hr>
+        <?php } ?>
+        <hr>
 <?php
     }
 } else {
@@ -50,6 +49,6 @@ if ($message) {
 </form>
 <br>
 <br>
-<?php  if ($this->error) : ?>
+<?php if (isset($this->error)) : ?>
     <span style="color: red"><?php echo $this->error; ?></span>
 <?php endif; ?>

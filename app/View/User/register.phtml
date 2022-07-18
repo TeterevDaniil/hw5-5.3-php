@@ -1,4 +1,6 @@
-
+<?PHP 
+/** @var \Base\View */
+?>
 Регистрация
 <form action="/user/register" method="post">
   Имя: <input type="text" name="name"><br>
@@ -19,6 +21,6 @@
 <br>
 <br>
 
-<?php if($this->error): ?>
+<?php if(isset($this->error)): ?>
     <span style="color: red"><?=$this->error;?></span>
 <?php endif; ?>
